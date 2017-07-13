@@ -15,6 +15,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.makeKeyAndVisible()
+        let layout = UICollectionViewFlowLayout()
+        window?.rootViewController = UINavigationController(rootViewController: HomeController(collectionViewLayout: layout))
+        
+        //get rid of black bar underneath navbar
+        UINavigationBar.appearance().shadowImage = UIImage()
+        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
+        
+        //change the color of navBar
+        UINavigationBar.appearance().barTintColor = .rgb(red: 230, green: 32, blue: 31)
+        
+        //change the color of statusBar
+        application.statusBarStyle = .lightContent
+        
+        //add a view to change the color of statusBar's background
+        let statusBarBackgroundColor = UIView()
+        statusBarBackgroundColor.translatesAutoresizingMaskIntoConstraints = false
+        statusBarBackgroundColor.backgroundColor = UIColor.rgb(red: 194, green: 31, blue: 31)
+        
+        window?.addSubview(statusBarBackgroundColor)
+        window?.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": statusBarBackgroundColor]))
+        window?.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v0(20)]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": statusBarBackgroundColor]))
+
         // Override point for customization after application launch.
         return true
     }
